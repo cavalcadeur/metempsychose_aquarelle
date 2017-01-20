@@ -1,0 +1,33 @@
+var world = function(x,y,tx,ty,s,color,n){
+	function coor(x){
+		x = Math.round(x*tailleC);
+		while (x % tailleC != 0){
+			x -= 1;
+		} 
+		return x/tailleC;
+	}
+
+	function getTile(x,y){
+		if (x < 0 || y < 0 || x >= table[0].length || y >= table.length){
+			return 0;
+		}	
+		else return table[y][x];
+	}
+
+
+    	return{
+		act : function(guy){
+			guy.g += 0.5;
+			guy.y += guy.g*2/tailleC;
+			
+			var XX = coor(guy.x);
+			var YY = coor(guy.y + guy.hitY/tailleC);
+			var tile = getTile(XX,YY);
+			if (tile == 1){
+				guy.g = 0;
+				guy.y = YY - guy.hitY/tailleC;
+			}
+
+		}
+	};
+}();
