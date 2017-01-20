@@ -24,7 +24,7 @@ var multiplier = 1;
 var proba = 7;
 var gravite;
 var tailleC = 100;
-var table = [[0,0,0,0,0,0,1],[0,0,0,0,0,0,0],[0,1,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,1,0],[0,1,1,1,1,0,0]];
+var table = [[0,0,0,0,0,0,1],[0,0,0,0,0,0,0],[0,0,2,0,0,0,1],[0,0,0,0,0,2,1],[0,0,0,2,1,1,1],[0,1,1,1,1,0,0]];
 var heros = {x:0,y:3,g:-1,hitX:25,hitY:25,vx:0.1,vy:0,am:0.001,vit:0.01,max:0.1,capa:"saut",saut:0};
 
 // programme
@@ -104,13 +104,21 @@ function action(){
 
 function draw() {
     drawFond();
-    ctx.fillStyle = "rgb(255,255,255)";
+    ctx.fillStyle = "rgb(100,150,100)";
     ctx.drawImage(imgPersos[0],heros.x*tailleC - imgPersos[0].width / 2,heros.y*tailleC - imgPersos[0].height / 2);
     table.forEach(
         function(e,y){
             e.forEach(
                 function(f,x){
                     if (f == 1) ctx.fillRect(x*tailleC,y*tailleC,tailleC,tailleC);
+                    else if (f == 2){
+                        ctx.beginPath();
+                        ctx.moveTo(x*tailleC,(y+1)*tailleC);
+                        ctx.lineTo((x+1)*tailleC,(y+1)*tailleC);
+                        ctx.lineTo((x+1)*tailleC,y*tailleC);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
                 }
 
             );
@@ -120,7 +128,7 @@ function draw() {
 }
 
 function drawFond(){
-    ctx.fillStyle = "rgb(50,50,100)";
+    ctx.fillStyle = "rgb(20,20,50)";
     ctx.fillRect(0,0,W,H);
 }
 
