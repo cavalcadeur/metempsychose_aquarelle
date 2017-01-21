@@ -55,9 +55,11 @@ var world = function(x,y,tx,ty,s,color,n){
                     guy.y = YY + 1 + guy.hitY/tailleC;
                 }
                 else if (tile == 2){
-                    guy.g = 0;
-                    guy.saut = 0;
-                    guy.y = YY + 1 + guy.hitY/tailleC;
+                    if (guy.y-YY-guy.hitY/tailleC >= 1-(guy.x-XX)){
+                        guy.g = 0;
+                        guy.saut = 0;
+                        guy.y = YY + 1 + guy.hitY/tailleC;
+                    }
                 }
 
             }
