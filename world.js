@@ -33,12 +33,26 @@ var world = function(x,y,tx,ty,s,color,n){
                         guy.y = YY - guy.hitY/tailleC - (guy.x - XX);
                     }
                 }
+                else if (tile == 3){
+                    if (guy.y-(YY-1)+guy.hitY/tailleC >= (guy.x-XX)){
+                        guy.g = 0;
+                        guy.saut = 0;
+                        guy.y = YY - guy.hitY/tailleC + (guy.x - XX);
+                    }
+                }
             }
             else if (tileA == 2){
                 if (guy.y-YY+guy.hitY/tailleC >= 1-(guy.x-XX)){
                     guy.g = 0;
                     guy.saut = 0;
                     guy.y = YY+1 - guy.hitY/tailleC - (guy.x - XX);
+                }
+            }
+            else if (tileA == 3){
+                if (guy.y-YY+guy.hitY/tailleC >= (guy.x-XX)){
+                    guy.g = 0;
+                    guy.saut = 0;
+                    guy.y = YY - guy.hitY/tailleC + (guy.x - XX);
                 }
             }
 
@@ -61,6 +75,13 @@ var world = function(x,y,tx,ty,s,color,n){
                         guy.y = YY + 1 + guy.hitY/tailleC;
                     }
                 }
+                else if (tile == 3){
+                    if (guy.y-YY-guy.hitY/tailleC >= (guy.x-XX)){
+                        guy.g = 0;
+                        guy.saut = 0;
+                        guy.y = YY + 1 + guy.hitY/tailleC;
+                    }
+                }
 
             }
 
@@ -75,16 +96,14 @@ var world = function(x,y,tx,ty,s,color,n){
                 var YY = coor(guy.y);
                 var tile = getTile(XX,YY);
                 if (tile == 1){
-                    if (tileA == 2){
-
-
-                    }
-                    else{
-                        if (sens == 1){
+                    if (sens == 1){
+                        if (tileA != 2){
                             guy.x = XX - guy.hitY/tailleC;
                             guy.vx = 0;
                         }
-                        else{
+                    }
+                    else{
+                        if (tileA != 3){
                             guy.x = (XX+1) + guy.hitY/tailleC;
                             guy.vx = 0;
                         }
