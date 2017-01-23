@@ -3,7 +3,7 @@ var ctx,canvas;
 var Widget;
 var keys = [];
 var persos = [];
-var imgPersos = [new Image];
+var imgPersos = [new Image,new Image];
 imgPersos.forEach(
     function (e,i){
         e.src = "images/p"+i+".png";
@@ -24,8 +24,9 @@ var multiplier = 1;
 var proba = 7;
 var gravite;
 var tailleC = 100;
-var table = [[0,0,0,0,0,0,1,0],[0,0,1,0,0,0,0,0],[0,2,1,3,0,0,1,3],[0,0,0,0,0,2,1,1],[0,0,0,2,1,1,1,0],[0,1,1,1,1,0,0,0]];
-var heros = {x:0,y:3,g:-1,hitX:25,hitY:25,vx:0.1,vy:0,am:0.001,vit:0.01,max:0.1,capa:"saut",saut:0};
+var table = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0],[0,0,0,0,0,0,1,0],[0,0,0,0,0,0,1,0],[0,0,0,0,0,2,0,1],[1,1,1,1,1,1,1,1]];
+var heros = {x:0,y:3,g:-1,hitX:31.5,hitY:31.5,vx:0.1,vy:0,am:0.001,vit:0.01,max:0.1,capa:"saut",saut:0,img:0,ia:"nothingAtAllYouSonOfABitch",sens:1,r:0};
+var ennemis = [{x:4,y:1,g:-1,hitX:30,hitY:25,vx:0,vy:0,am:0.001,vit:0.02,max:0.05,capa:"",saut:0,img:1,ia:"ar",sens:1,r:0}];
 
 // programme
 
@@ -104,8 +105,9 @@ function action(){
 
 function draw() {
     drawFond();
-    ctx.fillStyle = "rgb(100,150,100)";
-    ctx.drawImage(imgPersos[0],heros.x*tailleC - imgPersos[0].width / 2,heros.y*tailleC - imgPersos[0].height / 2);
+    ctx.fillStyle = "rgb(100,100,100)";
+    world.draw(heros,ctx,tailleC,imgPersos);
+    //ctx.drawImage(imgPersos[heros.img],heros.x*tailleC - heros.hitX,heros.y*tailleC - heros.hitY);
     table.forEach(
         function(e,y){
             e.forEach(
@@ -133,10 +135,18 @@ function draw() {
 
         }
     );
+    ennemis.forEach(
+        function (e,i){
+            world.draw(e,ctx,tailleC,imgPersos);
+            //ctx.drawImage(imgPersos[e.img],e.x*tailleC - e.hitX,e.y*tailleC - e.hitY);
+            world.act(e);
+            if (e.ia == "ar") world.iaAr(e);
+        }
+    );
 }
 
 function drawFond(){
-    ctx.fillStyle = "rgb(20,20,50)";
+    ctx.fillStyle = "rgb(20,20,20)";
     ctx.fillRect(0,0,W,H);
 }
 

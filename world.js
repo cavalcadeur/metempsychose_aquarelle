@@ -65,20 +65,20 @@ var world = function(x,y,tx,ty,s,color,n){
                 }
                 else if (tile == 1){
                     guy.g = 0;
-                    guy.saut = 0;
+                    //guy.saut = 0;
                     guy.y = YY + 1 + guy.hitY/tailleC;
                 }
                 else if (tile == 2){
                     if (guy.y-YY-guy.hitY/tailleC >= 1-(guy.x-XX)){
                         guy.g = 0;
-                        guy.saut = 0;
+                        //guy.saut = 0;
                         guy.y = YY + 1 + guy.hitY/tailleC;
                     }
                 }
                 else if (tile == 3){
                     if (guy.y-YY-guy.hitY/tailleC >= (guy.x-XX)){
                         guy.g = 0;
-                        guy.saut = 0;
+                        //guy.saut = 0;
                         guy.y = YY + 1 + guy.hitY/tailleC;
                     }
                 }
@@ -110,6 +110,30 @@ var world = function(x,y,tx,ty,s,color,n){
                     }
                 }
             }
+            
+            if (guy.img == 0){
+                guy.r += guy.vx*3;
+                if (guy.g != 0){
+                    if (guy.vx == 0){
+                        guy.r += 0.5;
+                    }
+                    else {
+                        guy.r += Math.abs(guy.vx)/guy.vx*0.5;
+                    }
+                }
+            }
+        },
+        iaAr : function(e){
+            
+
+        },
+        draw : function(e,ctx,ta,img){
+            ctx.save();
+            ctx.translate(e.x*ta,e.y*ta);
+            ctx.rotate(e.r);
+            ctx.scale(e.sens,1);
+            ctx.drawImage(img[e.img],-e.hitX,-e.hitY);
+            ctx.restore();
         }
     };
 }();
