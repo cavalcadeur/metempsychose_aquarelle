@@ -74,6 +74,7 @@ function start(){
 
 function animation(){
     heros.high = window.prompt("Wesh wesh saut de la boule ?")*-1;
+    tailleC = window.prompt("Taille des cases en pixels ?");
     var f = function(t) {
         paint(t);
         window.requestAnimationFrame(f);
