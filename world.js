@@ -40,6 +40,15 @@ var world = function(x,y,tx,ty,s,color,n){
                         guy.y = YY-1 - guy.hitY/tailleC + (guy.x - XX);
                     }
                 }
+                else if (tile == 4){
+                    var cy = guy.y-(YY-1)+guy.hitY/tailleC;
+                    var cx = guy.x-XX;
+                    if ((1-cx)*(1-cx) + (1-cy)*(1-cy) < 1){
+                        guy.g = 0;
+                        guy.saut = 0;
+                        guy.y = YY - guy.hitY/tailleC - Math.sin(Math.acos(1-cx));
+                    }
+                }
             }
             else if (tileA == 2){
                 if (guy.y-YY+guy.hitY/tailleC >= 1-(guy.x-XX)){
@@ -53,6 +62,15 @@ var world = function(x,y,tx,ty,s,color,n){
                     guy.g = 0;
                     guy.saut = 0;
                     guy.y = YY - guy.hitY/tailleC + (guy.x - XX);
+                }
+            }
+            else if (tileA == 4){
+                var cy = guy.y-YY+guy.hitY/tailleC;
+                var cx = guy.x-XX;
+                if ((1-cx)*(1-cx) + (1-cy)*(1-cy) < 1){
+                    guy.g = 0;
+                    guy.saut = 0;
+                    guy.y = YY - guy.hitY/tailleC - Math.sin(Math.acos(1-cx)) + 1;
                 }
             }
 
@@ -122,7 +140,7 @@ var world = function(x,y,tx,ty,s,color,n){
                     }
                 }
             }
-            
+
             if (guy.img == 0){
                 guy.r += guy.vx*3;
                 if (guy.g != 0){
@@ -136,7 +154,7 @@ var world = function(x,y,tx,ty,s,color,n){
             }
         },
         iaAr : function(e){
-            
+
 
         },
         draw : function(e,ctx,ta,img){
