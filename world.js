@@ -37,7 +37,7 @@ var world = function(x,y,tx,ty,s,color,n){
                     if (guy.y-(YY-1)+guy.hitY/tailleC >= (guy.x-XX)){
                         guy.g = 0;
                         guy.saut = 0;
-                        guy.y = YY - guy.hitY/tailleC + (guy.x - XX);
+                        guy.y = YY-1 - guy.hitY/tailleC + (guy.x - XX);
                     }
                 }
             }
@@ -92,21 +92,33 @@ var world = function(x,y,tx,ty,s,color,n){
                 else guy.vx += guy.am;
 
                 var sens = guy.vx/Math.abs(guy.vx);
-                var XX = coor(guy.x + guy.hitY/tailleC * sens);
+                var XX = coor(guy.x + (guy.hitY/tailleC * sens));
                 var YY = coor(guy.y);
                 var tile = getTile(XX,YY);
                 if (tile == 1){
                     if (sens == 1){
                         if (tileA != 2){
                             guy.x = XX - guy.hitY/tailleC;
-                            guy.vx = 0;
+                            guy.vx = guy.vx*-1;
                         }
                     }
                     else{
                         if (tileA != 3){
                             guy.x = (XX+1) + guy.hitY/tailleC;
-                            guy.vx = 0;
+                            guy.vx = guy.vx*-1;
                         }
+                    }
+                }
+                else if (tile == 2){
+                    if (sens == -1 && guy.y-YY-guy.hitY/tailleC >= 1-(guy.x-XX)){
+                        guy.x = (XX+1) + guy.hitY/tailleC;
+                        guy.vx = guy.vx*-1;
+                    }
+                }
+                else if (tile == 3){
+                    if (sens == 1 && guy.y-YY-guy.hitY/tailleC >= (guy.x-XX)){
+                        guy.x = XX - guy.hitY/tailleC;
+                        guy.vx = guy.vx*-1;
                     }
                 }
             }
