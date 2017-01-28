@@ -115,7 +115,7 @@ var world = function(x,y,tx,ty,s,color,n){
                 var tile = getTile(XX,YY);
                 if (tile == 1){
                     if (sens == 1){
-                        if (tileA != 2){
+                        if (tileA != 2 && tileA != 4){
                             guy.x = XX - guy.hitY/tailleC;
                             guy.vx = guy.vx*-1;
                         }
@@ -136,6 +136,14 @@ var world = function(x,y,tx,ty,s,color,n){
                 else if (tile == 3){
                     if (sens == 1 && guy.y-YY-guy.hitY/tailleC >= (guy.x-XX)){
                         guy.x = XX - guy.hitY/tailleC;
+                        guy.vx = guy.vx*-1;
+                    }
+                }
+                else if (tile == 4){
+                    var cy = guy.y-YY+guy.hitY/tailleC;
+                    var cx = guy.x-XX;
+                    if (sens == -1 && (1-cx)*(1-cx) + (1-cy)*(1-cy) < 1){
+                        guy.x = XX+1 + guy.hitY/tailleC;
                         guy.vx = guy.vx*-1;
                     }
                 }

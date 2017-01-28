@@ -23,9 +23,9 @@ var timeoutID;
 var multiplier = 1;
 var proba = 7;
 var gravite;
-var tailleC = 50;
-var table = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,4,0],[1,1,1,1,1,1,1,1]];
-var heros = {x:0,y:3,g:-1,hitX:31.5,hitY:31.5,vx:0.1,vy:0,am:0.001,vit:0.01,max:0.1,capa:"saut",saut:0,img:0,ia:"nothingAtAllYouSonOfABitch",sens:1,r:0};
+var tailleC = 100;
+var table = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,4,1,0,0,0],[0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,1],[0,0,4,1,1,0,4,1],[1,1,1,1,1,1,1,1]];
+var heros = {x:0,y:3,g:-1,hitX:31.5,hitY:31.5,vx:0.1,vy:0,am:0.001,vit:0.01,max:0.1,capa:"saut",saut:0,img:0,ia:"nothingAtAllYouSonOfABitch",sens:1,r:0,high:-13};
 var ennemis = [{x:4,y:1,g:-1,hitX:30,hitY:25,vx:0,vy:0,am:0.001,vit:0.02,max:0.05,capa:"",saut:0,img:1,ia:"ar",sens:1,r:0}];
 
 // programme
@@ -73,6 +73,7 @@ function start(){
 }
 
 function animation(){
+    heros.high = window.prompt("Wesh wesh saut de la boule ?")*-1;
     var f = function(t) {
         paint(t);
         window.requestAnimationFrame(f);
@@ -99,7 +100,7 @@ function moveLeft(){
 
 function action(){
     if (heros.capa == "saut"){
-        if (heros.saut == 0) {heros.g = -10;heros.saut = 1;}
+        if (heros.saut == 0) {heros.g = heros.high;heros.saut = 1;}
     }
 }
 
