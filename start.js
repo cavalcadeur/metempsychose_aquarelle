@@ -23,7 +23,7 @@ var timeoutID;
 var multiplier = 1;
 var proba = 7;
 var gravite;
-var tailleC = 100;
+var tailleC = 50;
 var table = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,4,0],[1,1,1,1,1,1,1,1]];
 var heros = {x:0,y:3,g:-1,hitX:31.5,hitY:31.5,vx:0.1,vy:0,am:0.001,vit:0.01,max:0.1,capa:"saut",saut:0,img:0,ia:"nothingAtAllYouSonOfABitch",sens:1,r:0};
 var ennemis = [{x:4,y:1,g:-1,hitX:30,hitY:25,vx:0,vy:0,am:0.001,vit:0.02,max:0.05,capa:"",saut:0,img:1,ia:"ar",sens:1,r:0}];
@@ -132,6 +132,12 @@ function draw() {
                     else if (f == 4){
                         ctx.beginPath();
                         ctx.arc((x+1)*tailleC,(y+1)*tailleC,tailleC,-Math.PI,-Math.PI/2);
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.moveTo(x*tailleC,(y+1)*tailleC);
+                        ctx.lineTo((x+1)*tailleC,(y+1)*tailleC);
+                        ctx.lineTo((x+1)*tailleC,y*tailleC);
+                        ctx.closePath();
                         ctx.fill();
                     }
                 }
