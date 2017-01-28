@@ -15,7 +15,7 @@ var world = function(x,y,tx,ty,s,color,n){
     return{
         act : function(guy){
             guy.g += 0.5;
-            guy.y += guy.g*2/tailleC;
+            guy.y += (guy.g*2)/tailleC;
 
 
             var XX = coor(guy.x);
@@ -100,6 +100,15 @@ var world = function(x,y,tx,ty,s,color,n){
                         guy.y = YY + 1 + guy.hitY/tailleC;
                     }
                 }
+                else if (tile == 4){
+                    var cy = guy.y-YY+guy.hitY/tailleC;
+                    var cx = guy.x-XX;
+                    if ((1-cx)*(1-cx) + (1-cy)*(1-cy) < 1){
+                        guy.g = 0;
+                        //guy.saut = 0;
+                        guy.y = YY + 1 + guy.hitY/tailleC;
+                    }
+                }
 
             }
 
@@ -117,26 +126,26 @@ var world = function(x,y,tx,ty,s,color,n){
                     if (sens == 1){
                         if (tileA != 2 && tileA != 4){
                             guy.x = XX - guy.hitY/tailleC;
-                            guy.vx = guy.vx*-1;
+                            guy.vx = guy.vx*-1/2;
                         }
                     }
                     else{
                         if (tileA != 3){
                             guy.x = (XX+1) + guy.hitY/tailleC;
-                            guy.vx = guy.vx*-1;
+                            guy.vx = guy.vx*-1/2;
                         }
                     }
                 }
                 else if (tile == 2){
                     if (sens == -1 && guy.y-YY-guy.hitY/tailleC >= 1-(guy.x-XX)){
                         guy.x = (XX+1) + guy.hitY/tailleC;
-                        guy.vx = guy.vx*-1;
+                        guy.vx = guy.vx*-1/2;
                     }
                 }
                 else if (tile == 3){
                     if (sens == 1 && guy.y-YY-guy.hitY/tailleC >= (guy.x-XX)){
                         guy.x = XX - guy.hitY/tailleC;
-                        guy.vx = guy.vx*-1;
+                        guy.vx = guy.vx*-1/2;
                     }
                 }
                 else if (tile == 4){
@@ -144,7 +153,7 @@ var world = function(x,y,tx,ty,s,color,n){
                     var cx = guy.x-XX;
                     if (sens == -1 && (1-cx)*(1-cx) + (1-cy)*(1-cy) < 1){
                         guy.x = XX+1 + guy.hitY/tailleC;
-                        guy.vx = guy.vx*-1;
+                        guy.vx = guy.vx*-1/2;
                     }
                 }
             }
@@ -167,11 +176,20 @@ var world = function(x,y,tx,ty,s,color,n){
         },
         draw : function(e,ctx,ta,img){
             ctx.save();
-            ctx.translate(e.x*ta,e.y*ta);
+            ctx.translate(e.x*ta+scrollX,e.y*ta+scrollY);
             ctx.rotate(e.r);
             ctx.scale(e.sens,1);
             ctx.drawImage(img[e.img],-e.hitX,-e.hitY);
             ctx.restore();
+        },
+        scroll : function (e){
+            if (e.x*tailleC > W/2){
+                scrollX = W/2 - e.x*tailleC;
+            }
+            if (e.y*tailleC + scrollY > H/4*3){
+                scrollY = -e.y*tailleC + H/4*3;
+                if (H-scrollY > 1050) scrollY = H-1050;
+            }
         }
     };
 }();
